@@ -25,15 +25,28 @@ py_sesh_id = sesh_id['session_id']
 #print(py_sesh_id)
 #print(json.dumps(sesh_id, indent=2))
 
+user_input = input("What do you want to ask the bot?")
+
 
 #ass id: 6bc3d805-70f6-4f71-9ee0-def44227ed12
+
+#sends user_input to the bot and stores the response in response
 response = assistant.message(
     assistant_id='6bc3d805-70f6-4f71-9ee0-def44227ed12',
     session_id=py_sesh_id,
     input={
         'message_type': 'text',
-        'text': 'joke'
+        'text': user_input
     }
 ).get_result()
 
-print(json.dumps(response, indent=2))
+#extremly messy code, will fix later
+output = response['output']
+generic = output['generic']
+generic_list = generic[0]
+bot_output = generic_list['text'] 
+
+print(bot_output)
+
+
+#print(json.dumps(response, indent=2))
