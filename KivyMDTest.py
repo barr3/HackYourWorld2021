@@ -62,7 +62,7 @@ class MainApp(MDApp):
         #self.screen.ids.response.text = "Snorre snorre bruh"
         input = self.screen.ids.input.text
         self.screen.ids.response.text = run_conversation(input)
-        
+        self.screen.ids.input.text = ""
 
 
     
