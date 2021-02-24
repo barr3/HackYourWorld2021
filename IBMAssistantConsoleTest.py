@@ -21,6 +21,8 @@ py_sesh_id = sesh_id['session_id']
 
 ###################################################################################
 
+
+#See KivyMDTest.py for code comments. 
 def run_conversation(input):
     user_input = input
     

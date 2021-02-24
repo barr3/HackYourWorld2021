@@ -25,7 +25,8 @@ py_sesh_id = sesh_id['session_id']
 
 #######################################
 
-
+#This function takes the input "input" and sends it to the assistant.
+#The function returns the response that the assistant gives. 
 def run_conversation(input):
     user_input = input
     
@@ -38,6 +39,7 @@ def run_conversation(input):
         }
     ).get_result()
 
+    #Really messy and ugly code. Could probaly be cleaned up but it works
     output = response['output']
     generic = output['generic']
     generic_list = generic[0]
@@ -46,7 +48,7 @@ def run_conversation(input):
     return bot_output
 
 
-
+#This class runs the GUI, main.kv is where all the widgets are added
 class MainApp(MDApp):
 
     def build(self):
@@ -56,12 +58,13 @@ class MainApp(MDApp):
         self.screen = Builder.load_file("main.kv")
         return self.screen
         
-        
+        #This function takes the value of what is put in the textfield in the gui
+        #and sends it to the assistan using run_conversation
     def press(self):
-        #print(self.screen.ids.input.text)
-        #self.screen.ids.response.text = "Snorre snorre bruh"
         input = self.screen.ids.input.text
         self.screen.ids.response.text = run_conversation(input)
+        
+        #Clears the 
         self.screen.ids.input.text = ""
 
 
