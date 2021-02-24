@@ -12,3 +12,5 @@ KivyMD: pip install https://github.com/kivymd/KivyMD/archive/master.zip
 
 
 Ladda ned kodenm gå in i mappen där du har clonat repon och kör: python KivyMDTest.py så borde det fungera. 
+
+IBM Watson Assistant är gjord för att svara på dessa intents: Greetings, Goodbye, och Joke. Testa till exempel att skriva "Tell me a joke" och tryck på "korv"
