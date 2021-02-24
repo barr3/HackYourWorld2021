@@ -73,6 +73,9 @@ class MainApp(MDApp):
 
     def mat_press(self):
         self.change_mode("mat")
+        #self.screen.ids.mat.md_bg_color
+        self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
+
 
     def trans_press(self):
         self.change_mode("transport")

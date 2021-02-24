@@ -9,36 +9,42 @@ MDBoxLayout:
 			name: "logga"
 			icon: "account-circle"
 			BoxLayout:
-                pos_hint: {'center_x': .5}
+
 				orientation: 'vertical'
 				MDLabel:
 					id:response
 					text:"Jag vill logga:"
+                    halign: "center"
 
                 BoxLayout:
+                    id:layout_box
                     orientation: 'horizontal'
-
+                    halign: "center"
 
                     MDRaisedButton:
                         text: "Transport"
-                        pos_hint:{'center_x': 0, 'center_y': .5 }
+                        pos_hint: {'center_x': .5}
                         md_bg_color: 0,0,0,.5
                         on_press: app.trans_press()
 
                     MDRaisedButton:
+                        id: matknapp
                         text: "Mat"
-                        pos_hint:{'center_x': 0, 'center_y': .5 }
+                        pos_hint: {'center_x': .5}
                         md_bg_color: 0,0,0,1
                         on_press: app.mat_press()
 
 
-				MDTextField:
-					id: input
-					hint_text:"Hej"
-				MDFillRoundFlatButton:
-					text_color: 1, 1, 1, 1
-					text:"korv"
-					on_press: app.press()
+                BoxLayout:
+                    orientation:'horizontal'
+
+				    MDTextField:
+                        id: input
+					    hint_text:"Hej"
+				    MDFillRoundFlatButton:
+                        text_color: 1, 1, 1, 1
+					    text:"korv"
+					    on_press: app.press()
 
 		MDBottomNavigationItem:
 			text: 'Se din p\u00e5verkan'
