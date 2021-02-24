@@ -48,9 +48,21 @@ def run_conversation(input):
     return bot_output
 
 
+
+
+
+
 #This class runs the GUI, main.kv is where all the widgets are added
 #MainApp
 class MainApp(MDApp):
+
+
+    #This function gets called when the user presses one of the mat/transport-buttons
+    def change_mode(self, press):
+        #This variable is used to decide which database to get data from
+        mode = press
+        self.mode = mode
+
 
     def build(self):
         self.theme_cls.primary_palette = "Blue"
@@ -59,13 +71,24 @@ class MainApp(MDApp):
         self.screen = Builder.load_file("hack.kv")
         return self.screen
 
+    def mat_press(self):
+        self.change_mode("mat")
+
+    def trans_press(self):
+        self.change_mode("transport")
+
+
         #This function takes the value of what is put in the textfield in the gui
         #and sends it to the assistan using run_conversation
 
+        
+
     def press(self):
         input = self.screen.ids.input.text
-        self.screen.ids.response.text = run_conversation(input)
-        
+        #self.screen.ids.response.text = run_conversation(input)
+
+        print("input: ", input)
+        print("mode: ", self.mode)
         #Clears the 
         self.screen.ids.input.text = ""
 
