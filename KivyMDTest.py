@@ -49,17 +49,19 @@ def run_conversation(input):
 
 
 #This class runs the GUI, main.kv is where all the widgets are added
+#MainApp
 class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_hue = "500"
-        self.screen = Builder.load_file("main.kv")
+        self.screen = Builder.load_file("hack.kv")
         return self.screen
-        
+
         #This function takes the value of what is put in the textfield in the gui
         #and sends it to the assistan using run_conversation
+
     def press(self):
         input = self.screen.ids.input.text
         self.screen.ids.response.text = run_conversation(input)
@@ -76,5 +78,3 @@ class MainApp(MDApp):
 
 
 MainApp().run()
-
-

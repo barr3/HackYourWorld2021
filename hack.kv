@@ -1,0 +1,47 @@
+MDBoxLayout:
+	adaptive_height: False
+
+	MDBottomNavigation:
+		MDBottomNavigationItem:
+			text: "Logga"
+			name: "logga"
+			icon: "account-circle"
+			BoxLayout:
+				orientation: 'vertical'
+				MDLabel:
+					id:response
+					text:"Jag vill logga:"
+
+                MDDropDownMenu:
+                    caller:
+
+
+                MDDropDownItem:
+                    id: drop_item
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    text: 'Item'
+                    on_release: self.set_item("New Item")
+
+
+
+				MDTextField:
+					id: input
+					hint_text:"Hej"
+				MDFillRoundFlatButton:
+					text_color: 1, 1, 1, 1
+					text:"korv"
+					on_press: app.press()
+
+		MDBottomNavigationItem:
+			text: 'Se din p\u00e5verkan'
+			name: "se"
+			icon: "account-cash"
+			BoxLayout:
+				orientation: 'vertical'
+
+
+		MDBottomNavigationItem:
+			text: 'Se din historik'
+			name: "se2"
+			icon: "account-cash"
+			BoxLayout:
