@@ -10,4 +10,5 @@ Kivy: python -m pip install kivy[base] kivy_examples
 
 KivyMD: pip install https://github.com/kivymd/KivyMD/archive/master.zip
 
-(fler kommer att läggas till senare)
+
+Ladda ned kodenm gå in i mappen där du har clonat repon och kör: python KivyMDTest.py så borde det fungera. 
