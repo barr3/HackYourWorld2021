@@ -65,8 +65,8 @@ class MainApp(MDApp):
 
 
     def build(self):
-        self.theme_cls.primary_palette = "Blue"
-        self.theme_cls.theme_style = "Light"
+        self.theme_cls.primary_palette = "Green"
+        self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_hue = "500"
         self.screen = Builder.load_file("hack.kv")
         return self.screen
@@ -94,12 +94,6 @@ class MainApp(MDApp):
         print("mode: ", self.mode)
         #Clears the 
         self.screen.ids.input.text = ""
-
-
-    
-    
-
-
 
 
 

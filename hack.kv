@@ -8,7 +8,8 @@ MDBoxLayout:
 			text: "Logga"
 			name: "logga"
 			icon: "account-circle"
-			BoxLayout:
+			MDBoxLayout:
+
 
 				orientation: 'vertical'
 				MDLabel:
@@ -16,26 +17,28 @@ MDBoxLayout:
 					text:"Jag vill logga:"
                     halign: "center"
 
-                BoxLayout:
-                    id:layout_box
-                    orientation: 'horizontal'
-                    halign: "center"
+
+                MDFloatLayout:
+
+                    md_bg_color: app.theme_cls.primary_color
 
                     MDRaisedButton:
                         text: "Transport"
-                        pos_hint: {'center_x': .5}
+                        id: transknapp
                         md_bg_color: 0,0,0,.5
                         on_press: app.trans_press()
+                        pos_hint: {'center_y': .5, 'right': 1}
+
 
                     MDRaisedButton:
                         id: matknapp
                         text: "Mat"
-                        pos_hint: {'center_x': .5}
+                        pos_hint: {'center_y': .5, 'left': 1}
                         md_bg_color: 0,0,0,1
                         on_press: app.mat_press()
 
 
-                BoxLayout:
+                MDBoxLayout:
                     orientation:'horizontal'
 
 				    MDTextField:
