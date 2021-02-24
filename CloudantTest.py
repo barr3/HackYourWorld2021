@@ -20,6 +20,7 @@ for data in testData:
         "co2": data[1],
         "beskrivning": data[2]
     }
+    print(jsonDoc)
     newDoc = myDatabaseDemo.create_document(jsonDoc)
 
 if (newDoc.exists()):
