@@ -1,3 +1,4 @@
+import os
 import GetData as d
 import Chart
 import numpy as np
@@ -15,23 +16,17 @@ client.connect()
 
 def piechart():
     doc = client['user']['userCo2']
-    data = []
-    chartLabels = []
-    chartColors = []
-    if float(doc['food']) != 0:
-        data.append(float(doc['food']))
-        chartLabels.append('Food')
-        chartColors.append('green')
-    if float(doc['transport']) != 0:
-        data.append(float(doc['food']))
-        chartLabels.append('Transport')
-        chartColors.append('grey')
-    if float(doc['electricity']) != 0:
-        data.append(float(doc['electricity']))
-        chartLabels.append('Electricity')
-        chartColors.append('yellow')
+    food = 0
+    transport = 0
+    electricity = 0
+
+    food += float(doc['food'])
+    transport += float(doc['transport'])
+    electricity += float(doc['electricity'])
+
+    data = [food, transport, electricity]
+    chartLabels = ['food', 'transport', 'electricity']
+    chartColors = ['green', 'grey', 'yellow']
+    plt.clf()
     plt.pie(data, labels=chartLabels, colors=chartColors)
-    plt.savefig('piechart.png')
-
-
-piechart()
+    plt.savefig('piechart.png', transparent=True)

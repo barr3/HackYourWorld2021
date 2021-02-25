@@ -20,3 +20,8 @@ def calc_transport(type, dist):
         return float(data['boat']) * dist
     elif type == 'flight':
         return float(data['flight']) * dist
+
+
+def compare(total):
+    treePerYear = 20
+    return total/treePerYear
