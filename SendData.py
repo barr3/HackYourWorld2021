@@ -12,10 +12,9 @@ client.connect()
 
 def sendCo2(amount, type):
     doc = client['user']['userCo2']
+    tempDoc = doc
+    doc.delete_database()
+    tempVal =
 
-
-doc = client['user']['userCo2']
-doc.update_field(action=doc.list_field_append,
-                 field='food', value=str(213))
 
 sendCo2(20, 'food')
