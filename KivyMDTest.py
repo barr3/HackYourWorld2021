@@ -5,6 +5,11 @@ import json
 from ibm_watson import AssistantV2
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 
+from kivy.config import Config
+Config.set('graphics', 'width', '370')
+Config.set('graphics', 'height', '600')
+Config.write()
+
 #Sets API Key
 authenticator = IAMAuthenticator('Paa0LICW2gszbzgDQX_83y5td9ggmRiv0H2RvA88uG0w')
 
@@ -66,7 +71,7 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "Green"
-        self.theme_cls.theme_style = "Light"
+        self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_hue = "500"
         self.screen = Builder.load_file("hack.kv")
         self.mat_press()
@@ -78,12 +83,13 @@ class MainApp(MDApp):
         #self.screen.ids.mat.md_bg_color
         self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]
         self.screen.ids.transknapp.md_bg_color = [1,1,1,1]
+        self.screen.ids.input.hint_text = "Jag har ätit:"
 
     def trans_press(self):
         self.change_mode("transport")
         self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]
         self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
-
+        self.screen.ids.input.hint_text = "Jag har åkt:"
 
         #This function takes the value of what is put in the textfield in the gui
         #and sends it to the assistan using run_conversation
