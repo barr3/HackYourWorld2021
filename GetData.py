@@ -28,10 +28,24 @@ class GetItem():
                 for item in doc['car']:
                     if item['type'] == name:
                         return item['co2']
+    def get_total(self):
+        dataBase = client['user']
+        userId = 'userCo2'
+        food = ""
+        electricity = ""
+        transport = ""
+        for doc in dataBase:
+            if doc['_id'] == userId:
+                for item in doc['food']:
+                    food += item
+                for item in doc['electricity']:
+                    electricity += item
+                for item in doc['transport']:
+                    transport += item
+                total = float(food) + float(electricity) + float(transport)
+            return total
 
 # print(dataBase)
 # result = Result(dataBase, include_docs=True)
-
 # print(format(result[0]))
-
 # GetItem.get_food('BigMac')
