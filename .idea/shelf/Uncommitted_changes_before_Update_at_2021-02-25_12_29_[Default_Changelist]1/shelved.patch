@@ -1,0 +1,45 @@
+Index: KivyMDTest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from kivymd.app import MDApp\r\nfrom kivy.lang import Builder\r\n\r\n\r\nfrom kivy.config import Config\r\nConfig.set('graphics', 'width', '370')\r\nConfig.set('graphics', 'height', '600')\r\nConfig.write()\r\n\r\n\r\n#This class runs the GUI, main.kv is where all the widgets are added\r\n#MainApp\r\nclass MainApp(MDApp):\r\n\r\n    clickable = True\r\n    trans = False\r\n    #This function gets called when the user presses one of the mat/transport-buttons\r\n    def change_mode(self, press):\r\n        #This variable is used to decide which database to get data from\r\n        mode = press\r\n        self.mode = mode\r\n        if self.mode == \"transport\":\r\n            self.screen.ids.input.hint_text = \"Jag har åkt bil, buss, flyg et.c\"\r\n\r\n        else:\r\n            self.screen.ids.input.hint_text = \"Jag har ätit:\"\r\n\r\n        self.screen.ids.translabel.text = \"\"\r\n\r\n\r\n    def build(self):\r\n        self.theme_cls.primary_palette = \"Green\"\r\n        self.theme_cls.theme_style = \"Dark\"\r\n        self.theme_cls.primary_hue = \"500\"\r\n        self.screen = Builder.load_file(\"hack.kv\")\r\n        self.mat_press()\r\n        return self.screen\r\n\r\n\r\n    def mat_press(self):\r\n        if self.clickable == True:\r\n\r\n            self.change_mode(\"mat\")\r\n        #self.screen.ids.mat.md_bg_color\r\n            self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]\r\n            self.screen.ids.transknapp.md_bg_color = [1,1,1,1]\r\n            self.screen.ids.input.hint_text = \"Jag har ätit:\"\r\n\r\n    def trans_press(self):\r\n        if self.clickable == True:\r\n\r\n        \r\n            self.change_mode(\"transport\")\r\n            self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]\r\n            self.screen.ids.matknapp.md_bg_color = [1,1,1,1]\r\n            self.screen.ids.input.hint_text = \"Jag har åkt bil, buss, flyg et.c\"\r\n\r\n        #This function takes the value of what is put in the textfield in the gui\r\n        #and sends it to the assistan using run_conversation\r\n\r\n    def trans_sträcka(self):\r\n\r\n\r\n        self.clickable = False\r\n        self.screen.ids.translabel.text = \"Hur många kilometer har du åkt?\"\r\n        self.screen.ids.input.hint_text = \"Hur många kilometer?\"\r\n        #text = self.screen.ids.input.text\r\n        if self.trans == True:\r\n            text = self.screen.ids.input.text\r\n\r\n\r\n\r\n            \r\n            try:\r\n                text = int(text)\r\n                return self.screen.ids.input.text\r\n            except ValueError:\r\n                is_int = False\r\n                self.screen.ids.input.hint_text = \"Vänligen skriv en siffra\"\r\n\r\n\r\n\r\n        else:\r\n            pass\r\n\r\n\r\n        self.trans = True\r\n\r\n\r\n    def reset(self):\r\n        self.change_mode(self.mode)\r\n\r\n    input = True\r\n    transport = None\r\n    def press(self):\r\n        #input = self.screen.ids.input.text\r\n        #self.screen.ids.response.text = run_conversation(input)\r\n\r\n        if self.mode == \"transport\":\r\n\r\n            if self.screen.ids.input.text != \"\" :\r\n\r\n                if self.input == True:\r\n\r\n                    self.transport = self.screen.ids.input.text\r\n                    self.input = False\r\n                    \r\n\r\n                sträcka = self.trans_sträcka()\r\n                if sträcka == None:\r\n                    sträcka = self.trans_sträcka()\r\n                else:\r\n                    print(sträcka)\r\n                    self.clickable = True\r\n                    self.input = True\r\n                    print(\"Du har åkt \", self.transport, \" i \", sträcka, \"km.\")\r\n                    self.reset()\r\n\r\n\r\n\r\n\r\n        #Clears the \r\n        self.screen.ids.input.text = \"\"\r\n\r\n\r\n\r\nMainApp().run()\r\n
+===================================================================
+diff --git a/KivyMDTest.py b/KivyMDTest.py
+--- a/KivyMDTest.py	
++++ b/KivyMDTest.py	
+@@ -124,4 +124,4 @@
+ 
+ 
+ 
+-MainApp().run()
++MainApp().run()
+\ No newline at end of file
+Index: CloudantTest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from cloudant.client import Cloudant\r\nfrom cloudant.error import CloudantException\r\nfrom cloudant.result import Result, ResultByKey\r\n\r\nclient = Cloudant.iam(\"5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix\",\r\n                      \"R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13\", connect=True)\r\nclient.connect()\r\ndatabaseName = \"databasedemo\"\r\nmyDatabaseDemo = client.create_database(databaseName)\r\nif myDatabaseDemo.exists():\r\n    print(\"'{0}' successfully created.\\n\".format(databaseName))\r\n\r\ntestData = [[\"BigMac\", 1000, \"Beskrivnings test\"],\r\n            [\"Sallad\", 200, \"Coolare än BigMac\"]]\r\n\r\n# skriv in datan i json och skicka till databasen\r\nfor data in testData:\r\n    jsonDoc = {\r\n        \"namn\": data[0],\r\n        \"co2\": data[1],\r\n        \"beskrivning\": data[2]\r\n    }\r\n    newDoc = myDatabaseDemo.create_document(jsonDoc)\r\n\r\nif (newDoc.exists()):\r\n    print('new doc created')\r\n\r\n# hämta data från alla document\r\nresult = Result(myDatabaseDemo.all_docs, include_docs=True)\r\nprint(format(result[0]))\r\n
+===================================================================
+diff --git a/CloudantTest.py b/CloudantTest.py
+--- a/CloudantTest.py	
++++ b/CloudantTest.py	
+@@ -5,12 +5,12 @@
+ client = Cloudant.iam("5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix",
+                       "R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13", connect=True)
+ client.connect()
+-databaseName = "databasedemo"
++databaseName = "User"
+ myDatabaseDemo = client.create_database(databaseName)
+ if myDatabaseDemo.exists():
+     print("'{0}' successfully created.\n".format(databaseName))
+ 
+-testData = [["BigMac", 1000, "Beskrivnings test"],
++testData = [[],
+             ["Sallad", 200, "Coolare än BigMac"]]
+ 
+ # skriv in datan i json och skicka till databasen
+@@ -27,4 +27,4 @@
+ 
+ # hämta data från alla document
+ result = Result(myDatabaseDemo.all_docs, include_docs=True)
+-print(format(result[0]))
++print(format(result[0]))
+\ No newline at end of file

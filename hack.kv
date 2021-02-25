@@ -145,12 +145,13 @@ MDBoxLayout:
                         value: 800
                         pos_hint: {"y": -0.4}
                         color: app.theme_cls.accent_color
+                        on_touch_up: app.test()
                     MDLabel:
                         text: 'Hur många kubikmeter vatten använder du per månad?'
                         pos_hint: {'center_x': .58, "center_y": -0.3}
                 MDSlider:
                     id: water
                     min: 0
-                    max: 4000
-                    value: 800
+                    max: 100
+                    value: 30
                     pos_hint: {"y": -0.1}

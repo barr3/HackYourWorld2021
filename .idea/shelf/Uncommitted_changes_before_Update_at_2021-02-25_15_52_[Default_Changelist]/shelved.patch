@@ -1,0 +1,109 @@
+Index: SendData.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from cloudant.client import Cloudant\r\nfrom cloudant.error import CloudantException\r\nfrom cloudant.result import Result, ResultByKey\r\nimport cloudant\r\n\r\nimport json\r\n\r\nclient = Cloudant.iam('5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix',\r\n                      'R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13', connect=True)\r\nclient.connect()\r\n\r\n\r\ndef sendCo2(amount, type):\r\n    doc = client['user']['userCo2']\r\n    tempVal = doc[type]\r\n    doc[type] = str(float(tempVal) + float(amount))\r\n    doc.save()\r\n\r\n\r\ndef sendMisc(amount, type):\r\n    doc = client['user']['userMisc']\r\n    tempVal = doc[type]\r\n    doc[type] = str(float(tempVal) + float(amount))\r\n    doc.save()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SendData.py b/SendData.py
+--- a/SendData.py	(revision 56aee601a3fa10bb42e524087230fcce10055036)
++++ b/SendData.py	(date 1614256618112)
+@@ -21,4 +21,4 @@
+     doc = client['user']['userMisc']
+     tempVal = doc[type]
+     doc[type] = str(float(tempVal) + float(amount))
+-    doc.save()
++    doc.save()
+\ No newline at end of file
+Index: GetData.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from cloudant.client import Cloudant\r\nfrom cloudant.error import CloudantException\r\nfrom cloudant.result import Result, ResultByKey\r\n\r\nclient = Cloudant.iam('5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix',\r\n                      'R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13', connect=True)\r\nclient.connect()\r\n\r\n\r\nclass GetItem():\r\n    dataBase = client['items']\r\n    # returns foods data\r\n\r\n    def get_food(name):\r\n        dataBase = client['items']\r\n        foodId = '487eede4ba4d1bc440dda6bf9a9e49c5'\r\n        for doc in dataBase:\r\n            if doc['_id'] == foodId:\r\n                for item in doc['food']:\r\n                    if item['name'] == name:\r\n                        return item['co2']\r\n    def get_transport(name):\r\n        dataBase = client['items']\r\n        transportId = 'transport'\r\n        for doc in dataBase:\r\n            if doc['_id'] == transportId:\r\n                for item in doc['car']:\r\n                    if item['type'] == name:\r\n                        return item['co2']\r\n    def get_total(type):\r\n        dataBase = client['user']\r\n        userId = 'userCo2'\r\n        food = \"\"\r\n        electricity = \"\"\r\n        transport = \"\"\r\n        for doc in dataBase:\r\n            if doc['_id'] == userId:\r\n                for item in doc['food']:\r\n                    food += item\r\n                for item in doc['electricity']:\r\n                    electricity += item\r\n                for item in doc['transport']:\r\n                    transport += item\r\n                total = float(food) + float(electricity) + float(transport)\r\n                if type == \"food\":\r\n                    return float(food)\r\n                elif type == \"electricity\":\r\n                    return float(electricity)\r\n                elif type == \"transport\":\r\n                    return float(transport)\r\n                else:\r\n                    return total\r\n# print(dataBase)\r\n# result = Result(dataBase, include_docs=True)\r\n# print(format(result[0]))\r\n# GetItem.get_food('BigMac')\r\n# print(GetItem.get_total(\"total\"))\r\n# print(GetItem.get_total(\"transport\"))\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/GetData.py b/GetData.py
+--- a/GetData.py	(revision 56aee601a3fa10bb42e524087230fcce10055036)
++++ b/GetData.py	(date 1614256618087)
+@@ -33,6 +33,7 @@
+         food = ""
+         electricity = ""
+         transport = ""
++        water = ""
+         for doc in dataBase:
+             if doc['_id'] == userId:
+                 for item in doc['food']:
+@@ -41,13 +42,17 @@
+                     electricity += item
+                 for item in doc['transport']:
+                     transport += item
+-                total = float(food) + float(electricity) + float(transport)
++                for item in doc["water"]:
++                    water += item
++                total = float(food) + float(electricity) + float(transport) + float(water)
+                 if type == "food":
+                     return float(food)
+                 elif type == "electricity":
+                     return float(electricity)
+                 elif type == "transport":
+                     return float(transport)
++                elif type == "water":
++                    return float(water)
+                 else:
+                     return total
+ # print(dataBase)
+@@ -55,4 +60,4 @@
+ # print(format(result[0]))
+ # GetItem.get_food('BigMac')
+ # print(GetItem.get_total("total"))
+-# print(GetItem.get_total("transport"))
++# print(GetItem.get_total("water"))
+Index: Chart.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import GetData as d\r\nimport Chart\r\nimport numpy as np\r\nimport matplotlib.pyplot as plt\r\n\r\nfrom cloudant.client import Cloudant\r\nfrom cloudant.error import CloudantException\r\nfrom cloudant.result import Result, ResultByKey\r\nimport cloudant\r\n\r\nclient = Cloudant.iam('5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix',\r\n                      'R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13', connect=True)\r\nclient.connect()\r\n\r\n\r\ndef piechart():\r\n    doc = client['user']['userCo2']\r\n    data = []\r\n    chartLabels = []\r\n    chartColors = []\r\n    if float(doc['food']) != 0:\r\n        data.append(float(doc['food']))\r\n        chartLabels.append('Food')\r\n        chartColors.append('green')\r\n    if float(doc['transport']) != 0:\r\n        data.append(float(doc['food']))\r\n        chartLabels.append('Transport')\r\n        chartColors.append('grey')\r\n    if float(doc['electricity']) != 0:\r\n        data.append(float(doc['electricity']))\r\n        chartLabels.append('Electricity')\r\n        chartColors.append('yellow')\r\n    plt.pie(data, labels=chartLabels, colors=chartColors)\r\n    plt.savefig('piechart.png')\r\n\r\n\r\npiechart()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Chart.py b/Chart.py
+--- a/Chart.py	(revision 56aee601a3fa10bb42e524087230fcce10055036)
++++ b/Chart.py	(date 1614256618130)
+@@ -34,4 +34,4 @@
+     plt.savefig('piechart.png')
+ 
+ 
+-piechart()
++piechart()
+\ No newline at end of file
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import GetData as d\r\nimport SendData as s\r\nimport User as u\r\nimport Chart\r\nimport numpy as np\r\nimport matplotlib.pyplot as plt\r\n\r\nfrom kivymd.app import MDApp\r\nfrom kivy.lang import Builder\r\n\r\n\r\nfrom kivy.config import Config\r\nConfig.set('graphics', 'width', '370')\r\nConfig.set('graphics', 'height', '600')\r\nConfig.write()\r\n\r\n\r\n#This class runs the GUI, main.kv is where all the widgets are added\r\n#MainApp\r\nclass MainApp(MDApp):\r\n    image = \"piechart.png\"\r\n    clickable = True\r\n    trans = False\r\n    car_size = \"Small\"\r\n    #This function gets called when the user presses one of the mat/transport-buttons\r\n    def change_mode(self, press):\r\n        #This variable is used to decide which database to get data from\r\n        mode = press\r\n        self.mode = mode\r\n        if self.mode == \"transport\":\r\n            self.screen.ids.input.hint_text = \"Jag har åkt bil, buss, flyg et.c\"\r\n\r\n        else:\r\n            self.screen.ids.input.hint_text = \"Jag har ätit:\"\r\n\r\n        self.screen.ids.translabel.text = \"\"\r\n\r\n    def get_car_size(self):\r\n        if self.screen.ids.liten.active == True:\r\n            print(\"Small car\")\r\n            self.car_size = \"small\"\r\n        if self.screen.ids.mellan.active == True:\r\n            print(\"Mellan car\")\r\n            self.car_size = \"medium\"\r\n        if self.screen.ids.stor.active == True:\r\n            print(\"Stor car\")\r\n            self.car_size = \"large\"\r\n\r\n    def update(self):\r\n        Chart.piechart()\r\n        #self.screen.ids.img.source = \"\"\r\n        #self.screen.ids.img.reload()\r\n        self.screen.ids.img.source = self.image\r\n        self.screen.ids.img.reload()\r\n        print(self.screen.ids.img)\r\n\r\n        print(\"reload\")\r\n\r\n    def build(self):\r\n        self.theme_cls.primary_palette = \"Green\"\r\n        self.theme_cls.theme_style = \"Dark\"\r\n        self.theme_cls.primary_hue = \"500\"\r\n        self.screen = Builder.load_file(\"hack.kv\")\r\n        self.mat_press()\r\n        return self.screen\r\n\r\n\r\n    def mat_press(self):\r\n        if self.clickable == True:\r\n            self.get_car_size()\r\n\r\n            self.change_mode(\"mat\")\r\n        #self.screen.ids.mat.md_bg_color\r\n            self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]\r\n            self.screen.ids.transknapp.md_bg_color = [1,1,1,1]\r\n            self.screen.ids.input.hint_text = \"Jag har ätit:\"\r\n\r\n    def trans_press(self):\r\n        if self.clickable == True:\r\n\r\n\r\n            self.change_mode(\"transport\")\r\n            self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]\r\n            self.screen.ids.matknapp.md_bg_color = [1,1,1,1]\r\n            self.screen.ids.input.hint_text = \"Jag har åkt bil, buss, flyg et.c\"\r\n\r\n        #This function takes the value of what is put in the textfield in the gui\r\n        #and sends it to the assistan using run_conversation\r\n\r\n    def trans_sträcka(self):\r\n\r\n\r\n        self.clickable = False\r\n        self.screen.ids.translabel.text = \"Hur många kilometer har du åkt?\"\r\n        self.screen.ids.input.hint_text = \"Hur många kilometer?\"\r\n        #text = self.screen.ids.input.text\r\n        if self.trans == True:\r\n            text = self.screen.ids.input.text\r\n\r\n\r\n\r\n\r\n            try:\r\n                text = int(text)\r\n                return self.screen.ids.input.text\r\n            except ValueError:\r\n                is_int = False\r\n                self.screen.ids.input.hint_text = \"Vänligen skriv en siffra\"\r\n\r\n\r\n\r\n        else:\r\n            pass\r\n\r\n\r\n        self.trans = True\r\n\r\n\r\n\r\n    def send_transport(self, intent, data):\r\n\r\n        intent = get_intent(intent)\r\n\r\n        d.GetItem.get_transport(intent)\r\n\r\n\r\n\r\n        print(\"intenten är:\" ,intent)\r\n        print(\"sträckan är:\", data)\r\n\r\n\r\n    def send_food(self, intent):\r\n\r\n        intent = get_intent(intent)\r\n\r\n        temp_val = d.GetItem.get_food(intent)\r\n\r\n        #print(intent)\r\n        #print(temp_val)\r\n        #s.sendCo2(temp_val, \"food\")\r\n\r\n    def reset(self):\r\n        self.change_mode(self.mode)\r\n\r\n    input = True\r\n    transport = None\r\n    def press(self):\r\n        #input = self.screen.ids.input.text\r\n        #self.screen.ids.response.text = run_conversation(input)\r\n\r\n        if self.mode == \"transport\":\r\n\r\n            if self.screen.ids.input.text != \"\" :\r\n\r\n                if self.input == True:\r\n\r\n                    self.transport = self.screen.ids.input.text\r\n                    self.input = False\r\n\r\n\r\n                sträcka = self.trans_sträcka()\r\n                if sträcka == None:\r\n                    sträcka = self.trans_sträcka()\r\n                else:\r\n                    self.clickable = True\r\n                    self.input = True\r\n                    self.send_transport(self.transport, sträcka)\r\n                    self.reset()\r\n\r\n        if self.mode == \"mat\":\r\n            mat = self.screen.ids.input.text\r\n            self.send_food(mat)\r\n\r\n\r\n        #Clears the\r\n        self.screen.ids.input.text = \"\"\r\n\r\n\r\n\r\ndef get_intent(input):\r\n    response = u.run_conversation(input)\r\n    return response\r\n\r\n\r\n\r\n\r\nMainApp().run()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	(revision 56aee601a3fa10bb42e524087230fcce10055036)
++++ b/main.py	(date 1614264450511)
+@@ -141,13 +141,12 @@
+ 
+     def reset(self):
+         self.change_mode(self.mode)
+-
+     input = True
+     transport = None
++
+     def press(self):
+         #input = self.screen.ids.input.text
+         #self.screen.ids.response.text = run_conversation(input)
+-
+         if self.mode == "transport":
+ 
+             if self.screen.ids.input.text != "" :
+@@ -184,4 +183,4 @@
+ 
+ 
+ 
+-MainApp().run()
++MainApp().run()
+\ No newline at end of file

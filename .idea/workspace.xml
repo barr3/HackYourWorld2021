@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4108f221-5abd-464b-97a8-ab80f2c99539" name="Default Changelist" comment="Added sliders">
+      <change beforePath="$PROJECT_DIR$/hack.kv" beforeDir="false" afterPath="$PROJECT_DIR$/hack.kv" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ovPl4nqRXVPQqKGC66VhDHfz04" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4108f221-5abd-464b-97a8-ab80f2c99539" name="Default Changelist" comment="" />
+      <created>1614164239653</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614164239653</updated>
+    </task>
+    <task id="LOCAL−00001" summary="Added the ability to get co2 value from watson">
+      <created>1614245906347</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1614245906348</updated>
+    </task>
+    <task id="LOCAL−00002" summary="Added the ability to get co2 value from watson">
+      <created>1614253057109</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1614253057109</updated>
+    </task>
+    <task id="LOCAL−00003" summary="Added the gettotal funtction">
+      <created>1614253111932</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1614253111932</updated>
+    </task>
+    <task id="LOCAL−00004" summary="Changed icons">
+      <created>1614253854601</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1614253854601</updated>
+    </task>
+    <task id="LOCAL−00005" summary="Added the ability to select categories">
+      <created>1614255003043</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1614255003043</updated>
+    </task>
+    <task id="LOCAL−00006" summary="Added sliders">
+      <created>1614264473149</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1614264473149</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added the ability to get co2 value from watson" />
+    <MESSAGE value="Added the gettotal funtction" />
+    <MESSAGE value="Changed icons" />
+    <MESSAGE value="Added the ability to select categories" />
+    <MESSAGE value="Added sliders" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added sliders" />
+  </component>
+</project>

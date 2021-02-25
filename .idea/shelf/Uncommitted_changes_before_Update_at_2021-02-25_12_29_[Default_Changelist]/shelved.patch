@@ -1,0 +1,66 @@
+Index: User.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import json\r\nfrom ibm_watson import AssistantV2\r\nfrom ibm_cloud_sdk_core.authenticators import IAMAuthenticator\r\nimport GetData\r\n\r\n# Sets API Key\r\nauthenticator = IAMAuthenticator('cHqjiL405gfXgXgfOCzESnez_H3uqQt93LDn7HIYGDsw')\r\n\r\n# Inits assistant\r\nassistant = AssistantV2(\r\n    version='2020-09-24',\r\n    authenticator=authenticator\r\n)\r\nassistant.set_service_url('https://api.eu-de.assistant.watson.cloud.ibm.com')\r\n\r\nsesh_id = assistant.create_session(\r\n    assistant_id='dc3a8482-d13c-4913-bc48-44785b5d14d5'\r\n).get_result()\r\n\r\n# Sets py_sesh_id to the session id\r\npy_sesh_id = sesh_id['session_id']\r\n\r\n\r\n###################################################################################\r\n\r\n\r\n# See KivyMDTest.py for code comments.\r\ndef run_conversation(input):\r\n    user_input = input\r\n\r\n    response = assistant.message(\r\n        assistant_id='dc3a8482-d13c-4913-bc48-44785b5d14d5',\r\n        session_id=py_sesh_id,\r\n        input={\r\n            'message_type': 'text',\r\n            'text': user_input\r\n        }\r\n    ).get_result()\r\n\r\n    output = response['output']\r\n    generic = output['generic']\r\n    generic_list = generic[0]\r\n    bot_output = generic_list['text']\r\n    print(bot_output)\r\n    print(GetData.GetItem.get_food(bot_output))\r\n    return bot_output\r\n\r\n# Adds values returned from run_conversation() to a list\r\nreturned = []\r\nreturned.append(run_conversation(input(\"Please ask me something\")))
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/User.py b/User.py
+--- a/User.py	
++++ b/User.py	
+@@ -47,4 +47,5 @@
+ 
+ # Adds values returned from run_conversation() to a list
+ returned = []
+-returned.append(run_conversation(input("Please ask me something")))
+\ No newline at end of file
++returned.append(run_conversation(input("Please ask me something")))
++
+Index: GetData.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from cloudant.client import Cloudant\r\nfrom cloudant.error import CloudantException\r\nfrom cloudant.result import Result, ResultByKey\r\n\r\nimport json\r\n\r\nclient = Cloudant.iam('5861e444-61ce-4c94-8d14-a94dfa36ede3-bluemix',\r\n                      'R9ePmy_llFF4gTtBPQROafzl4Ee2xALLiMzTWeCCnn13', connect=True)\r\nclient.connect()\r\n\r\n\r\nclass GetItem():\r\n    dataBase = client['items']\r\n    # returns foods data\r\n\r\n    def get_food(name):\r\n        dataBase = client['items']\r\n        foodId = '487eede4ba4d1bc440dda6bf9a9e49c5'\r\n        for doc in dataBase:\r\n            if doc['_id'] == foodId:\r\n                for item in doc['food']:\r\n                    if item['name'] == name:\r\n                        print(item['co2'])\r\n                        return item['co2']\r\n\r\n    def get_transport(name):\r\n        dataBase = client['items']\r\n        transportId = 'transport'\r\n        for doc in dataBase:\r\n            if doc['_id'] == transportId:\r\n                for item in doc['car']:\r\n                    if item['type'] == name:\r\n                        print(item['co2'])\r\n                        return item['co2']\r\n\r\n# print(dataBase)\r\n# result = Result(dataBase, include_docs=True)\r\n\r\n# print(format(result[0]))\r\n\r\n# GetItem.get_food('BigMac')\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/GetData.py b/GetData.py
+--- a/GetData.py	
++++ b/GetData.py	
+@@ -22,7 +22,6 @@
+                     if item['name'] == name:
+                         print(item['co2'])
+                         return item['co2']
+-
+     def get_transport(name):
+         dataBase = client['items']
+         transportId = 'transport'
+@@ -32,6 +31,24 @@
+                     if item['type'] == name:
+                         print(item['co2'])
+                         return item['co2']
++    def getTotal(self):
++        dataBase = client['user']
++        totalId = 'userCo2'
++        foodco = ""
++        transportco = ""
++        electricityco = ""
++        for doc in dataBase:
++            if doc['_id'] == totalId:
++                for item in doc["food"]:
++                    foodco += item
++                for item in doc["transport"]:
++                    transportco += item
++                for item in doc ["electricity"]:
++                    electricityco += item
++                print(foodco + " " + transportco + " " + electricityco)
++                totalvalue = float(foodco) + float(transportco) + float(electricityco)
++                print(totalvalue)
++
+ 
+ # print(dataBase)
+ # result = Result(dataBase, include_docs=True)
+@@ -39,3 +56,4 @@
+ # print(format(result[0]))
+ 
+ # GetItem.get_food('BigMac')
++GetItem.getTotal(self=0)
