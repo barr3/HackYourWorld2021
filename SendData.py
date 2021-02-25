@@ -15,3 +15,10 @@ def sendCo2(amount, type):
     tempVal = doc[type]
     doc[type] = str(float(tempVal) + float(amount))
     doc.save()
+
+
+def sendMisc(amount, type):
+    doc = client['user']['userMisc']
+    tempVal = doc[type]
+    doc[type] = str(float(tempVal) + float(amount))
+    doc.save()
