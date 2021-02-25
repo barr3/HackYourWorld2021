@@ -18,9 +18,10 @@ Config.write()
 #This class runs the GUI, main.kv is where all the widgets are added
 #MainApp
 class MainApp(MDApp):
-
+    image = "piechart.png"
     clickable = True
     trans = False
+    car_size = "Small"
     #This function gets called when the user presses one of the mat/transport-buttons
     def change_mode(self, press):
         #This variable is used to decide which database to get data from
@@ -34,12 +35,22 @@ class MainApp(MDApp):
 
         self.screen.ids.translabel.text = ""
 
+    def get_car_size(self):
+        if self.screen.ids.liten.active == True:
+            print("Small car")
+            self.car_size = "small"
+        if self.screen.ids.mellan.active == True:
+            print("Mellan car")
+            self.car_size = "medium"
+        if self.screen.ids.stor.active == True:
+            print("Stor car")
+            self.car_size = "large"
 
     def update(self):
         Chart.piechart()
-        self.screen.ids.img.source = ""
-        self.screen.ids.img.reload()
-        self.screen.ids.img.source = "piechart.png"
+        #self.screen.ids.img.source = ""
+        #self.screen.ids.img.reload()
+        self.screen.ids.img.source = self.image
         self.screen.ids.img.reload()
         print(self.screen.ids.img)
 
@@ -56,6 +67,7 @@ class MainApp(MDApp):
 
     def mat_press(self):
         if self.clickable == True:
+            self.get_car_size()
 
             self.change_mode("mat")
         #self.screen.ids.mat.md_bg_color
@@ -108,6 +120,10 @@ class MainApp(MDApp):
     def send_transport(self, intent, data):
 
         intent = get_intent(intent)
+
+        d.GetItem.get_transport(intent)
+
+
 
         print("intenten är:" ,intent)
         print("sträckan är:", data)
