@@ -72,7 +72,7 @@ MDBoxLayout:
 
                 Image:
                     id: img
-                    source: 'piechart.png'
+                    source: app.image
                     size: self.texture_size
 
                 MDRaisedButton:
@@ -86,3 +86,43 @@ MDBoxLayout:
 			name: "se2"
 			icon: "cog"
 			BoxLayout:
+                orientation: 'horizontal'
+
+                FloatLayout:
+
+
+                    MDLabel:
+                        text: 'Vad har du för bil?'
+
+                    MDCheckbox:
+                        id:liten
+                        group: 'group'
+                        size_hint: None, None
+                        size: dp(48), dp(48)
+                        active: True
+                        pos_hint: {'center_x': .4, 'center_y': .5}
+                        MDLabel:
+                            text:'Liten'
+                            pos: self.parent.pos
+
+
+                    MDCheckbox:
+                        id:mellan
+                        group: 'group'
+                        size_hint: None, None
+                        size: dp(48), dp(48)
+                        pos_hint: {'center_x': .6, 'center_y': .5}
+                        MDLabel:
+                            text:'Mellan'
+                            pos: self.parent.pos
+
+
+                    MDCheckbox:
+                        id:stor
+                        group: 'group'
+                        size_hint: None, None
+                        size: dp(48), dp(48)
+                        pos_hint: {'center_x': .8, 'center_y': .5}
+                        MDLabel:
+                            text:'Stor'
+                            pos: self.parent.pos
