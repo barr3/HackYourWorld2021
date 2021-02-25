@@ -60,7 +60,7 @@ MDBoxLayout:
 					    hint_text:"Hej"
 				    MDFillRoundFlatButton:
                         text_color: 1, 1, 1, 1
-					    text:"korv"
+					    text:"logga"
 					    on_press: app.press()
 
 		MDBottomNavigationItem:
@@ -86,13 +86,15 @@ MDBoxLayout:
 			name: "se2"
 			icon: "cog"
 			BoxLayout:
-                orientation: 'horizontal'
+                orientation: 'vertical'
 
                 FloatLayout:
 
 
                     MDLabel:
                         text: 'Vad har du för bil?'
+                        pos_hint: {'center_x': .55, "center_y": 0.7}
+
 
                     MDCheckbox:
                         id:liten
@@ -100,29 +102,45 @@ MDBoxLayout:
                         size_hint: None, None
                         size: dp(48), dp(48)
                         active: True
-                        pos_hint: {'center_x': .4, 'center_y': .5}
+                        pos_hint: {'center_x': .5, 'center_y': 0.7}
                         MDLabel:
                             text:'Liten'
                             pos: self.parent.pos
-
-
                     MDCheckbox:
                         id:mellan
                         group: 'group'
                         size_hint: None, None
                         size: dp(48), dp(48)
-                        pos_hint: {'center_x': .6, 'center_y': .5}
+                        pos_hint: {'center_x': .7, 'center_y': 0.7}
                         MDLabel:
                             text:'Mellan'
                             pos: self.parent.pos
-
-
                     MDCheckbox:
                         id:stor
                         group: 'group'
                         size_hint: None, None
                         size: dp(48), dp(48)
-                        pos_hint: {'center_x': .8, 'center_y': .5}
+                        pos_hint: {'center_x': .9, 'center_y': 0.7}
                         MDLabel:
                             text:'Stor'
                             pos: self.parent.pos
+                    MDLabel:
+                        text: 'Hur många kWh el använder du per månad?'
+                        pos_hint: {'center_x': .58, "center_y": 0.3}
+
+                    MDSlider:
+                        id: electricity
+                        min: 0
+                        max: 4000
+                        value: 800
+                        pos_hint: {"y": -0.4}
+                        color: app.theme_cls.accent_color
+                    MDLabel:
+                        text: 'Hur många kubikmeter vatten använder du per månad?'
+                        pos_hint: {'center_x': .58, "center_y": -0.3}
+                MDSlider:
+                    id: water
+                    min: 0
+                    max: 4000
+                    value: 800
+                    pos_hint: {"y": -0.1}
