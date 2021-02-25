@@ -11,7 +11,17 @@ MDBoxLayout:
 			MDBoxLayout:
 
 
+
 				orientation: 'vertical'
+
+                MDToolbar:
+
+
+                    elevation: 20
+                    title: "Footprint"
+
+                    md_bg_color: app.theme_cls.primary_color
+
 				MDLabel:
 					id:response
 					text:"Jag vill logga:"
@@ -59,6 +69,16 @@ MDBoxLayout:
 			icon: "chart-line"
 			BoxLayout:
 				orientation: 'vertical'
+
+                Image:
+                    id: img
+                    source: 'piechart.png'
+                    size: self.texture_size
+
+                MDRaisedButton:
+                    md_bg_color: 1,1,1,1
+                    text: 'uppdatera'
+                    on_press: app.update()
 
 
 		MDBottomNavigationItem:
