@@ -22,7 +22,7 @@ class MainApp(MDApp):
     image = "piechart.png"
     clickable = True
     trans = False
-    car_size = "Small"
+    car_size = "small"
     message  = "Sedan du laddade ned den här appen har du släppt ut "+ str(1)+ " kg koldioxid"
     co2 = 0
     trees = 0
@@ -117,18 +117,14 @@ class MainApp(MDApp):
         intent = get_intent(intent)
         data = int(data)
 
-        print(type(data))
-
-
-        print("intenten är:", intent)
-
 
         if intent == "car":
             temp_val = c.calc_transport(self.car_size, data)
 
         else:
             temp_val = c.calc_transport(intent, data)
-
+        print(self.car_size)
+        print(temp_val)
 
         s.sendCo2(temp_val, "transport")
 
@@ -185,8 +181,9 @@ class MainApp(MDApp):
                     self.clickable = True
                     self.input = True
                     self.send_transport(self.transport, sträcka)
-                    self.update()
+                    #
                     self.reset()
+                    self.update()
 
         if self.mode == "mat":
             mat = self.screen.ids.input.text
