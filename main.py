@@ -1,6 +1,7 @@
 import GetData as d
 import SendData as s
 import User as u
+import Calculate as c
 import Chart
 import numpy as np
 import matplotlib.pyplot as plt
@@ -111,10 +112,29 @@ class MainApp(MDApp):
     def send_transport(self, intent, data):
 
         intent = get_intent(intent)
+        data = int(data)
 
-        d.GetItem.get_transport(intent)
+        print(type(data))
+
 
         print("intenten är:", intent)
+
+
+        if intent == "car":
+            temp_val = c.calc_transport(self.car_size, data)
+
+        else:
+            temp_val = c.calc_transport(intent, data)
+
+
+
+
+        print(temp_val)
+
+
+        print("intenten är:" ,intent)
+        print(self.car_size)
+
         print("sträckan är:", data)
 
     def send_food(self, intent):
@@ -123,8 +143,13 @@ class MainApp(MDApp):
 
         temp_val = d.GetItem.get_food(intent)
 
+
         # print(intent)
         # print(temp_val)
+
+        #print(intent)
+        print(temp_val)
+
         #s.sendCo2(temp_val, "food")
 
     def reset(self):
@@ -165,6 +190,7 @@ class MainApp(MDApp):
 
 def get_intent(input):
     response = u.run_conversation(input)
+
     return response
 
 
