@@ -1,3 +1,4 @@
+import os
 import GetData as d
 import Chart
 import numpy as np
@@ -18,6 +19,7 @@ def piechart():
     data = []
     chartLabels = []
     chartColors = []
+    print('nice')
     if float(doc['food']) != 0:
         data.append(float(doc['food']))
         chartLabels.append('Food')
@@ -30,8 +32,6 @@ def piechart():
         data.append(float(doc['electricity']))
         chartLabels.append('Electricity')
         chartColors.append('yellow')
+    plt.clf()
     plt.pie(data, labels=chartLabels, colors=chartColors)
-    plt.savefig('piechart.png')
-
-
-piechart()
+    plt.savefig('piechart.png', transparent=True)
