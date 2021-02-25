@@ -19,7 +19,6 @@ class GetItem():
                 for item in doc['food']:
                     if item['name'] == name:
                         return item['co2']
-
     def get_transport(name):
         dataBase = client['items']
         transportId = 'transport'
@@ -28,7 +27,7 @@ class GetItem():
                 for item in doc['car']:
                     if item['type'] == name:
                         return item['co2']
-    def get_total(self):
+    def get_total(type):
         dataBase = client['user']
         userId = 'userCo2'
         food = ""
@@ -43,9 +42,17 @@ class GetItem():
                 for item in doc['transport']:
                     transport += item
                 total = float(food) + float(electricity) + float(transport)
-            return total
-
+                if type == "food":
+                    return float(food)
+                elif type == "electricity":
+                    return float(electricity)
+                elif type == "transport":
+                    return float(transport)
+                else:
+                    return total
 # print(dataBase)
 # result = Result(dataBase, include_docs=True)
 # print(format(result[0]))
 # GetItem.get_food('BigMac')
+# print(GetItem.get_total("total"))
+# print(GetItem.get_total("transport"))
