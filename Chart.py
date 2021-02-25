@@ -24,7 +24,8 @@ def piechart():
     transport += float(doc['transport'])
     electricity += float(doc['electricity'])
 
-    data = [food, transport, electricity]
+    data = [d.GetItem.get_total('food'), d.GetItem.get_total(
+        'transport'), d.GetItem.get_total('electricity')]
     chartLabels = ['food', 'transport', 'electricity']
     chartColors = ['green', 'grey', 'yellow']
     plt.clf()
