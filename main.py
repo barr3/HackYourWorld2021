@@ -14,4 +14,4 @@ chartColors = ['green', 'grey']
 
 if __name__ == '__main__':
     plt.pie(emission, labels=chartLabels, colors=chartColors)
-    plt.show()
+    plt.savefig('piechart.png')
