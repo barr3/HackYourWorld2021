@@ -73,7 +73,9 @@ MDBoxLayout:
                 Image:
                     id: img
                     source: app.image
-                    size: self.texture_size
+
+                    size_hint_y: None
+                    height: dp(400)
 
                 MDLabel:
                     id: mess
@@ -145,7 +147,7 @@ MDBoxLayout:
                         value: 800
                         pos_hint: {"y": -0.4}
                         color: app.theme_cls.accent_color
-                        on_touch_up: app.test()
+
                     MDLabel:
                         text: 'Hur många kubikmeter vatten använder du per månad?'
                         pos_hint: {'center_x': .58, "center_y": -0.3}
