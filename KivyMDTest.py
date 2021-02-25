@@ -66,19 +66,23 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "Green"
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_hue = "500"
         self.screen = Builder.load_file("hack.kv")
+        self.mat_press()
         return self.screen
+
 
     def mat_press(self):
         self.change_mode("mat")
         #self.screen.ids.mat.md_bg_color
-        self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
-
+        self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]
+        self.screen.ids.transknapp.md_bg_color = [1,1,1,1]
 
     def trans_press(self):
         self.change_mode("transport")
+        self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]
+        self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
 
 
         #This function takes the value of what is put in the textfield in the gui

@@ -20,21 +20,21 @@ MDBoxLayout:
 
                 MDFloatLayout:
 
-                    md_bg_color: app.theme_cls.primary_color
+
 
                     MDRaisedButton:
                         text: "Transport"
                         id: transknapp
-                        md_bg_color: 0,0,0,.5
+                        md_bg_color: 1,1,1,1
                         on_press: app.trans_press()
-                        pos_hint: {'center_y': .5, 'right': 1}
+                        pos_hint: {'x': .3, 'y': .7}
 
 
                     MDRaisedButton:
                         id: matknapp
                         text: "Mat"
-                        pos_hint: {'center_y': .5, 'left': 1}
-                        md_bg_color: 0,0,0,1
+                        pos_hint: {'x': .6, 'y':.7}
+                        md_bg_color: 1,1,1,1
                         on_press: app.mat_press()
 
 
