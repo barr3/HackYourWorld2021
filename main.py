@@ -1,4 +1,5 @@
 import GetData as d
+import Chart
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,5 +14,4 @@ chartLabels = ['Food', 'Transport']
 chartColors = ['green', 'grey']
 
 if __name__ == '__main__':
-    plt.pie(emission, labels=chartLabels, colors=chartColors)
-    plt.savefig('piechart.png')
+    Chart.MakeChart.piechart(emission, chartLabels, chartColors)
