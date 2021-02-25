@@ -23,5 +23,5 @@ def calc_transport(type, dist):
 
 
 def compare(total):
-    treePerDay = 0.057
-    return total/treePerDay
+    treePerYear = 20
+    return total/treePerYear
