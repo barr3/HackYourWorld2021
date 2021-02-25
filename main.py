@@ -23,6 +23,9 @@ class MainApp(MDApp):
     clickable = True
     trans = False
     car_size = "Small"
+    message  = "Sedan du laddade ned den här appen har du släppt ut "+ str(1)+ " kg koldioxid"
+    co2 = 0
+    trees = 0
     # This function gets called when the user presses one of the mat/transport-buttons
 
     def change_mode(self, press):
@@ -50,6 +53,7 @@ class MainApp(MDApp):
 
     def update(self):
         print('test')
+        self.update_values()
         Chart.piechart()
         #self.screen.ids.img.source = ""
         # self.screen.ids.img.reload()
@@ -61,7 +65,7 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.primary_palette = "Green"
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_hue = "500"
         self.screen = Builder.load_file("hack.kv")
         self.mat_press()
@@ -69,7 +73,6 @@ class MainApp(MDApp):
 
     def mat_press(self):
         if self.clickable == True:
-            self.get_car_size()
 
             self.change_mode("mat")
         # self.screen.ids.mat.md_bg_color
@@ -127,15 +130,7 @@ class MainApp(MDApp):
             temp_val = c.calc_transport(intent, data)
 
 
-
-
-        print(temp_val)
-
-
-        print("intenten är:" ,intent)
-        print(self.car_size)
-
-        print("sträckan är:", data)
+        s.sendCo2(temp_val, "transport")
 
     def send_food(self, intent):
 
@@ -150,7 +145,19 @@ class MainApp(MDApp):
         #print(intent)
         print(temp_val)
 
-        #s.sendCo2(temp_val, "food")
+        s.sendCo2(temp_val, "food")
+
+    def update_values(self):
+        #totalt = d.GetItem.get_total("total")
+        self.co2 = d.GetItem.get_total("total")
+        message = "Sedan du laddade ned den här appen har du släppt ut "+ str(self.co2)+ " kg koldioxid"
+        self.screen.ids.mess.text = message
+
+        self.trees = int(c.compare(self.co2))
+        print("Antal träd", self.trees)
+        trees = "Det tar "+ str(self.trees) + " träd för att kompensera dina utsläpp på ett år"
+        self.screen.ids.tree.text = trees
+
 
     def reset(self):
         self.change_mode(self.mode)
@@ -178,11 +185,14 @@ class MainApp(MDApp):
                     self.clickable = True
                     self.input = True
                     self.send_transport(self.transport, sträcka)
+                    self.update()
                     self.reset()
 
         if self.mode == "mat":
             mat = self.screen.ids.input.text
+            self.update()
             self.send_food(mat)
+
 
         # Clears the
         self.screen.ids.input.text = ""
