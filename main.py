@@ -23,7 +23,8 @@ class MainApp(MDApp):
     clickable = True
     trans = False
     car_size = "small"
-    message  = "Sedan du laddade ned den här appen har du släppt ut "+ str(1)+ " kg koldioxid"
+    message = "Sedan du laddade ned den här appen har du släppt ut " + \
+        str(1) + " kg koldioxid"
     co2 = 0
     trees = 0
     # This function gets called when the user presses one of the mat/transport-buttons
@@ -44,6 +45,7 @@ class MainApp(MDApp):
         if self.screen.ids.liten.active == True:
             print("Small car")
             self.car_size = "small"
+
         if self.screen.ids.mellan.active == True:
             print("Mellan car")
             self.car_size = "medium"
@@ -117,7 +119,6 @@ class MainApp(MDApp):
         intent = get_intent(intent)
         data = int(data)
 
-
         if intent == "car":
             temp_val = c.calc_transport(self.car_size, data)
 
@@ -134,11 +135,10 @@ class MainApp(MDApp):
 
         temp_val = d.GetItem.get_food(intent)
 
-
         # print(intent)
         # print(temp_val)
 
-        #print(intent)
+        # print(intent)
         print(temp_val)
 
         s.sendCo2(temp_val, "food")
@@ -146,14 +146,15 @@ class MainApp(MDApp):
     def update_values(self):
         #totalt = d.GetItem.get_total("total")
         self.co2 = d.GetItem.get_total("total")
-        message = "Sedan du laddade ned den här appen har du släppt ut "+ str(self.co2)+ " kg koldioxid"
+        message = "Sedan du laddade ned den här appen har du släppt ut " + \
+            str(self.co2) + " kg koldioxid"
         self.screen.ids.mess.text = message
 
         self.trees = int(c.compare(self.co2))
         print("Antal träd", self.trees)
-        trees = "Det tar "+ str(self.trees) + " träd för att kompensera dina utsläpp på ett år"
+        trees = "Det tar " + str(self.trees) + \
+            " träd för att kompensera dina utsläpp på ett år"
         self.screen.ids.tree.text = trees
-
 
     def reset(self):
         self.change_mode(self.mode)
@@ -189,7 +190,6 @@ class MainApp(MDApp):
             mat = self.screen.ids.input.text
             self.update()
             self.send_food(mat)
-
 
         # Clears the
         self.screen.ids.input.text = ""
