@@ -12,9 +12,6 @@ client.connect()
 
 def sendCo2(amount, type):
     doc = client['user']['userCo2']
-    tempDoc = doc
-    doc.delete_database()
-    tempVal =
-
-
-sendCo2(20, 'food')
+    tempVal = doc[type]
+    doc[type] = str(float(tempVal) + float(amount))
+    doc.save()

@@ -1,4 +1,5 @@
 import GetData as d
+import SendData as s
 import Chart
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,10 +9,10 @@ import matplotlib.pyplot as plt
 #     print(emission)
 
 
-emission = np.array([float(d.GetItem.get_food('Burger')),
-                     float(d.GetItem.get_transport('liten'))])
-chartLabels = ['Food', 'Transport']
-chartColors = ['green', 'grey']
+# emission = np.array([float(d.GetItem.get_food('Burger')),
+#                      float(d.GetItem.get_transport('liten'))])
+# chartLabels = ['Food', 'Transport']
+# chartColors = ['green', 'grey']
 
 if __name__ == '__main__':
-    Chart.MakeChart.piechart(emission, chartLabels, chartColors)
+    s.sendCo2(15, 'food')
