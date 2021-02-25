@@ -58,15 +58,6 @@ class GetItem():
         print(doc[type])
         return doc[type]
 
-
-while(True):
-    uInput = input()
-    if uInput == 'a':
-        GetItem.userCo2('food')
-        client['user']['userCo2']['_rev'] = "fewa"
-    else:
-        break
-
 # print(dataBase)
 # result = Result(dataBase, include_docs=True)
 # print(format(result[0]))
