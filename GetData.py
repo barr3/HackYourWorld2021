@@ -20,7 +20,6 @@ class GetItem():
             if doc['_id'] == foodId:
                 for item in doc['food']:
                     if item['name'] == name:
-                        print(item['co2'])
                         return item['co2']
 
     def get_transport(name):
@@ -30,7 +29,6 @@ class GetItem():
             if doc['_id'] == transportId:
                 for item in doc['car']:
                     if item['type'] == name:
-                        print(item['co2'])
                         return item['co2']
 
 # print(dataBase)
