@@ -1,72 +1,31 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 
-import json
-from ibm_watson import AssistantV2
-from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 
 from kivy.config import Config
 Config.set('graphics', 'width', '370')
 Config.set('graphics', 'height', '600')
 Config.write()
 
-#Sets API Key
-authenticator = IAMAuthenticator('Paa0LICW2gszbzgDQX_83y5td9ggmRiv0H2RvA88uG0w')
-
-#Inits assistant
-assistant = AssistantV2(
-    version='2020-09-24',
-    authenticator=authenticator
-)
-assistant.set_service_url('https://api.eu-de.assistant.watson.cloud.ibm.com')
-
-sesh_id = assistant.create_session(
-        assistant_id='6bc3d805-70f6-4f71-9ee0-def44227ed12'
-    ).get_result()
-
-#Sets py_sesh_id to the session id
-py_sesh_id = sesh_id['session_id']
-
-
-#######################################
-
-#This function takes the input "input" and sends it to the assistant.
-#The function returns the response that the assistant gives. 
-def run_conversation(input):
-    user_input = input
-    
-    response = assistant.message(
-        assistant_id='6bc3d805-70f6-4f71-9ee0-def44227ed12',
-        session_id=py_sesh_id,
-        input={
-            'message_type': 'text',
-            'text': user_input
-        }
-    ).get_result()
-
-    #Really messy and ugly code. Could probaly be cleaned up but it works
-    output = response['output']
-    generic = output['generic']
-    generic_list = generic[0]
-    bot_output = generic_list['text']
-    #print(bot_output) 
-    return bot_output
-
-
-
-
-
 
 #This class runs the GUI, main.kv is where all the widgets are added
 #MainApp
 class MainApp(MDApp):
 
-
+    clickable = True
+    trans = False
     #This function gets called when the user presses one of the mat/transport-buttons
     def change_mode(self, press):
         #This variable is used to decide which database to get data from
         mode = press
         self.mode = mode
+        if self.mode == "transport":
+            self.screen.ids.input.hint_text = "Jag har åkt bil, buss, flyg et.c"
+
+        else:
+            self.screen.ids.input.hint_text = "Jag har ätit:"
+
+        self.screen.ids.translabel.text = ""
 
 
     def build(self):
@@ -79,29 +38,87 @@ class MainApp(MDApp):
 
 
     def mat_press(self):
-        self.change_mode("mat")
+        if self.clickable == True:
+
+            self.change_mode("mat")
         #self.screen.ids.mat.md_bg_color
-        self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]
-        self.screen.ids.transknapp.md_bg_color = [1,1,1,1]
-        self.screen.ids.input.hint_text = "Jag har ätit:"
+            self.screen.ids.matknapp.md_bg_color = [.4,.4,.4,1]
+            self.screen.ids.transknapp.md_bg_color = [1,1,1,1]
+            self.screen.ids.input.hint_text = "Jag har ätit:"
 
     def trans_press(self):
-        self.change_mode("transport")
-        self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]
-        self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
-        self.screen.ids.input.hint_text = "Jag har åkt:"
+        if self.clickable == True:
+
+        
+            self.change_mode("transport")
+            self.screen.ids.transknapp.md_bg_color = [.4,.4,.4,1]
+            self.screen.ids.matknapp.md_bg_color = [1,1,1,1]
+            self.screen.ids.input.hint_text = "Jag har åkt bil, buss, flyg et.c"
 
         #This function takes the value of what is put in the textfield in the gui
         #and sends it to the assistan using run_conversation
 
-        
+    def trans_sträcka(self):
 
+
+        self.clickable = False
+        self.screen.ids.translabel.text = "Hur många kilometer har du åkt?"
+        self.screen.ids.input.hint_text = "Hur många kilometer?"
+        #text = self.screen.ids.input.text
+        if self.trans == True:
+            text = self.screen.ids.input.text
+
+
+
+            
+            try:
+                text = int(text)
+                return self.screen.ids.input.text
+            except ValueError:
+                is_int = False
+                self.screen.ids.input.hint_text = "Vänligen skriv en siffra"
+
+
+
+        else:
+            pass
+
+
+        self.trans = True
+
+
+    def reset(self):
+        self.change_mode(self.mode)
+
+    input = True
+    transport = None
     def press(self):
-        input = self.screen.ids.input.text
+        #input = self.screen.ids.input.text
         #self.screen.ids.response.text = run_conversation(input)
 
-        print("input: ", input)
-        print("mode: ", self.mode)
+        if self.mode == "transport":
+
+            if self.screen.ids.input.text != "" :
+
+                if self.input == True:
+
+                    self.transport = self.screen.ids.input.text
+                    self.input = False
+                    
+
+                sträcka = self.trans_sträcka()
+                if sträcka == None:
+                    sträcka = self.trans_sträcka()
+                else:
+                    print(sträcka)
+                    self.clickable = True
+                    self.input = True
+                    print("Du har åkt ", self.transport, " i ", sträcka, "km.")
+                    self.reset()
+
+
+
+
         #Clears the 
         self.screen.ids.input.text = ""
 
