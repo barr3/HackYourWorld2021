@@ -1,5 +1,6 @@
 import GetData as d
 import SendData as s
+import User as u
 import Chart
 import numpy as np
 import matplotlib.pyplot as plt
@@ -93,6 +94,25 @@ class MainApp(MDApp):
         self.trans = True
 
 
+
+    def send_transport(self, intent, data):
+
+        intent = get_intent(intent)
+
+        print("intenten är:" ,intent)
+        print("sträckan är:", data)
+
+
+    def send_food(self, intent):
+
+        intent = get_intent(intent)
+
+        temp_val = d.GetItem.get_food(intent)
+
+        #print(intent)
+        #print(temp_val)
+        #s.sendCo2(temp_val, "food")
+
     def reset(self):
         self.change_mode(self.mode)
 
@@ -116,17 +136,25 @@ class MainApp(MDApp):
                 if sträcka == None:
                     sträcka = self.trans_sträcka()
                 else:
-                    print(sträcka)
                     self.clickable = True
                     self.input = True
-                    print("Du har åkt ", self.transport, " i ", sträcka, "km.")
+                    self.send_transport(self.transport, sträcka)
                     self.reset()
 
-
+        if self.mode == "mat":
+            mat = self.screen.ids.input.text
+            self.send_food(mat)
 
 
         #Clears the
         self.screen.ids.input.text = ""
+
+
+
+def get_intent(input):
+    response = u.run_conversation(input)
+    return response
+
 
 
 

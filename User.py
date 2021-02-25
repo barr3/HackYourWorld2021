@@ -41,10 +41,10 @@ def run_conversation(input):
     generic = output['generic']
     generic_list = generic[0]
     bot_output = generic_list['text']
-    print(bot_output)
-    print(GetData.GetItem.get_food(bot_output))
+    #print(bot_output)
+    #print(GetData.GetItem.get_food(bot_output))
     return bot_output
 
 # Adds values returned from run_conversation() to a list
-returned = []
-returned.append(run_conversation(input("Please ask me something")))
+#returned = []
+#returned.append(run_conversation(input("Please ask me something")))
