@@ -35,6 +35,16 @@ class MainApp(MDApp):
         self.screen.ids.translabel.text = ""
 
 
+    def update(self):
+        Chart.piechart()
+        self.screen.ids.img.source = ""
+        self.screen.ids.img.reload()
+        self.screen.ids.img.source = "piechart.png"
+        self.screen.ids.img.reload()
+        print(self.screen.ids.img)
+
+        print("reload")
+
     def build(self):
         self.theme_cls.primary_palette = "Green"
         self.theme_cls.theme_style = "Dark"
